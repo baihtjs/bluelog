@@ -1,0 +1,12 @@
+from flask import Blueprint
+auth_bp = Blueprint('auth', __name__)
+
+@auth_bp.route('/login')
+def login():
+    return 'Hello login'
+@auth_bp.route('/logout')
+def logout():
+    return 'hello logout'
+@auth_bp.route('/index')
+def index():
+    return 'hello auth index'

@@ -1,0 +1,3 @@
+SECRET_KEY = "EjpNVSNQTyGi1VvWECj9TvC/+kq3oujee2kTfQUs8yCM6xX9Yjq52v54g+HVoknA"
+FLASK_APP=bluelog
+FLASK_ENV=development
