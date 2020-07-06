@@ -16,8 +16,8 @@ class BaseConfig(object):
     BLUELOG_COMMENT_PER_PAGE = 15
 
 class DevelopmentConfig(BaseConfig):
-    #SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(basedir,'data-dev.db')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir,'data-dev.db')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(basedir,'data-dev.db')
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir,'data-dev.db')
 
 class TestingConfig(BaseConfig):
     TESTING =True

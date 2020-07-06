@@ -10,6 +10,9 @@ from bluelog.blueprints.admin import admin_bp
 from bluelog.extensions import db, ckeditor, mail
 
 #def make_app(config_name=None):
+
+
+
 def create_app(config_name=None):
     if config_name is None:
         config_name = os.getenv('FLASK_ENV','development')
@@ -51,7 +54,7 @@ def register_commands(app):
     @click.option('--comment', default=500, help='Quantity of comments, default is 500.')
     def forge(category, post, comment):
         """Generates the fake categories, posts, and comments."""
-        from bluelog.fakes import fake_categories,fake_post,fake_comments, fake_admim
+        from bluelog.fakes import fake_categories,fake_posts,fake_comments, fake_admim
         db.drop_all()
         db.create_all()
         click.echo('Generating the administrator...')
@@ -59,7 +62,7 @@ def register_commands(app):
         click.echo('Generating %d categories...'% category)
         fake_categories()
         click.echo('Generating %d posts...' % post)
-        fake_post()
+        fake_posts()
         click.echo('Generating %d comments...' % comment)
         fake_comments()
         click.echo('Done.')

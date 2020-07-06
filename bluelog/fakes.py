@@ -1,10 +1,10 @@
-from random import random
+import random
 from sqlite3 import IntegrityError
 
 from faker import Faker
 
 from bluelog.extensions import db
-from models import Admin, Category, Post, Comment
+from bluelog.models import Admin, Category, Post, Comment
 
 
 def fake_admim():
@@ -31,13 +31,14 @@ def fake_categories(count=10):
         except IntegrityError:
             db.session.rollback()
 
-def fake_post(count=50):
-    post = Post(title=fake.sentence(),
+def fake_posts(count=50):
+    for i in range(count):
+        post = Post(title=fake.sentence(),
                 body=fake.text(2000),
-                catepory=Category.query.get(random.randint(1, Category.query.count())),
+                category=Category.query.get(random.randint(1, Category.query.count())),
                 timestamp = fake.date_time_this_year()
-    )
-    db.session.add(post)
+        )
+        db.session.add(post)
     db.session.commit()
 
 def fake_comments(count=50):
@@ -72,6 +73,7 @@ def fake_comments(count=50):
             site='example.com',
             body=fake.sentence(),
             timestamp=fake.date_time_this_year(),
+            from_admin=True,
             reviewed=True,
             post=Post.query.get(random.randint(1, Post.query.count()))
         )
