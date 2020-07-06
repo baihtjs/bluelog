@@ -1,5 +1,11 @@
 import os
+import sys
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+WIN = sys.platform.startswith('win')
+if WIN:
+    prefix = 'sqlite:///'
+else:
+    prefix = 'sqlite:////'
 
 class BaseConfig(object):
     SECRET_KET = os.getenv('SECRET_KEY','secret string')
@@ -16,16 +22,16 @@ class BaseConfig(object):
     BLUELOG_COMMENT_PER_PAGE = 15
 
 class DevelopmentConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(basedir,'data-dev.db')
+    SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir,'data-dev.db')
     #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir,'data-dev.db')
 
 class TestingConfig(BaseConfig):
     TESTING =True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(basedir, 'data-test.db')
+    SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir, 'data-test.db')
 
 class ProductionConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(basedir, 'data-pro.db')
+    SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir, 'data-pro.db')
 
 config = {
     'development': DevelopmentConfig,
