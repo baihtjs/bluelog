@@ -10,7 +10,7 @@ from bluelog.blueprints.admin import admin_bp
 from bluelog.extensions import db, ckeditor, mail
 
 #def make_app(config_name=None):
-
+from models import Admin, Category
 
 
 def create_app(config_name=None):
@@ -46,7 +46,11 @@ def register_shell_context(app):
     def make_shell_context():
         return dict(db=db)
 def register_template_context(app):
-    pass
+    @app.context_processor
+    def make_template_context():
+        admin = Admin.query.first()
+        categories = Category.query.order_by(Category.name).all()
+        return dict(admin=admin, categories=categories)
 def register_commands(app):
     @app.cli.command()
     @click.option('--category', default = 10, help = 'Quantity of categories, default is 10.')
